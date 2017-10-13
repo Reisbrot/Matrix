@@ -25,7 +25,7 @@ public class Wikipedia {
          e.printStackTrace();
       }
       System.out.println(GatherThe.title(urlString));
-      //System.out.println(GatherThe.intrestingText(urlString));
+      GatherThe.intrestingText(urlString);
       }
    }
 }

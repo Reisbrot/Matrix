@@ -10,12 +10,34 @@ public class Gather {
     }
 
     public String intrestingText(String urlContent) {
-        int textStart = urlContent.indexOf("<h2>"); //h2 is the Standard-Headline for Wikipedia - Subchapters. So the Stuff that comes with the First Subchapter.
+        Gather GatherThe = new Gather();
+        int textStart = urlContent.indexOf("class=\"mw-parser-output\"") + 25; //Thats where The Headline of the Article Ends. + 25 for the "parser-output"-Overcome-Stuff
         int textEnd = urlContent.indexOf("id=\"Einzelnachweise\""); //There where the Sources start. WHO CARES
         if(textEnd == -1)
             textEnd = urlContent.indexOf("id=\"Weblinks\""); //So if there are no Sources, Just suc in all that information until Weblinks
         System.out.println(textStart + "ss" + textEnd);
         String text = urlContent.substring(textStart, textEnd);
+        
+        GatherThe.plainText(text);
+        
+
+        
+        
         return text;
+    }
+
+    private void plainText(String t) {
+        int iStart = -1;
+        int iEnd = -1;
+        StringBuilder text = new StringBuilder(t);
+        //while(true){
+            iStart = text.indexOf("<a href"); //Link Decleration
+            if(iStart != -1)                  //if there is not not a Link
+             iEnd = text.indexOf(">", iStart);//How Link Declerations normally End
+            else
+            ;// break;
+            
+            System.out.println(iStart + " - " + iEnd);
+        //}
     }
 }
