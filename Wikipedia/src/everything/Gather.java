@@ -11,12 +11,16 @@ public class Gather {
 
     public String intrestingText(String urlContent) {
         Gather GatherThe = new Gather();
+        String text;
         int textStart = urlContent.indexOf("class=\"mw-parser-output\"") + 25; //Thats where The Headline of the Article Ends. + 25 for the "parser-output"-Overcome-Stuff
         int textEnd = urlContent.indexOf("id=\"Einzelnachweise\""); //There where the Sources start. WHO CARES
         if(textEnd == -1)
             textEnd = urlContent.indexOf("id=\"Weblinks\""); //So if there are no Sources, Just suc in all that information until Weblinks
-        System.out.println(textStart + "ss" + textEnd);
-        String text = urlContent.substring(textStart, textEnd);
+        if(textEnd != -1)       
+            text = urlContent.substring(textStart, textEnd);
+        else
+            text = urlContent.substring(textStart);
+        System.out.println(textStart + " - " + textEnd);
         
         GatherThe.plainText(text);
         
@@ -37,7 +41,7 @@ public class Gather {
             else
             ;// break;
             
-            System.out.println(iStart + " - " + iEnd);
+            System.out.println(iStart + " # " + iEnd);
         //}
     }
 }
