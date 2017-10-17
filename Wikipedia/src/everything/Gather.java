@@ -34,14 +34,17 @@ public class Gather {
         int iStart = -1;
         int iEnd = -1;
         StringBuilder text = new StringBuilder(t);
+        System.out.println(text);
         //while(true){
-            iStart = text.indexOf("<a href"); //Link Decleration
-            if(iStart != -1)                  //if there is not not a Link
-             iEnd = text.indexOf(">", iStart);//How Link Declerations normally End
+            iStart = text.indexOf("<a href");     //Link Decleration
+            if(iStart != -1)                      //if there is not not a Link
+             iEnd = text.indexOf(">", iStart) + 1;//How Link Declerations normally End
             else
             ;// break;
             
             System.out.println(iStart + " # " + iEnd);
+            text.delete(iStart, iEnd);
+            System.out.println(text);
         //}
     }
 }
