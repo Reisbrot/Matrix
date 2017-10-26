@@ -1,5 +1,7 @@
 package everything;
 
+import com.jaunt.*;
+
 
 public class Gather {
     public String title(String urlContent){
@@ -35,16 +37,18 @@ public class Gather {
         int iEnd = -1;
         StringBuilder text = new StringBuilder(t);
         System.out.println(text);
-        //while(true){
-            iStart = text.indexOf("<a href");     //Link Decleration
-            if(iStart != -1)                      //if there is not not a Link
-             iEnd = text.indexOf(">", iStart) + 1;//How Link Declerations normally End
-            else
-            ;// break;
-            
-            System.out.println(iStart + " # " + iEnd);
-            text.delete(iStart, iEnd);
-            System.out.println(text);
-        //}
+    try{
+     UserAgent userAgent = new UserAgent();
+     userAgent.openContent(t);
+ 
+      Elements tables = userAgent.doc.findEach("<a href>");       //find non-nested tables   
+      System.out.println("Found " + tables.size() + " links:");
+      for(Element table : tables){                               //iterate through Results
+        System.out.println(table.outerHTML() + "\n" + table.innerText() + "\n----\n");      //print each element and its contents
+      }   
+    }
+    catch(ResponseException e){
+      System.out.println(e);
+    }
     }
 }
