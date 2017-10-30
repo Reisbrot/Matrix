@@ -42,10 +42,13 @@ public class Gather {
      userAgent.openContent(t);
  
       Elements tables = userAgent.doc.findEach("<a href>");       //find non-nested tables   
-      System.out.println("Found " + tables.size() + " links:");
-      for(Element table : tables){                               //iterate through Results
-        System.out.println(table.outerHTML() + "\n" + table.innerText() + "\n----\n");      //print each element and its contents
-      }   
+      System.out.println("Found " + tables.size() + " links.");
+      for(Element table : tables){                              //iterate through Results
+       int startpos = text.indexOf(table.toString());
+       int endpos = startpos + table.toString().length();
+       text.delete(startpos, endpos);
+      }
+      System.out.println(text);
     }
     catch(ResponseException e){
       System.out.println(e);
