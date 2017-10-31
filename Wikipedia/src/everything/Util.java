@@ -3,32 +3,30 @@ package everything;
 import com.jaunt.*;
 
 public class Util {
-    public StringBuilder removeHtmlTags(StringBuilder text){
-            try{
-     UserAgent userAgent = new UserAgent();
-     userAgent.openContent(t);
+
+   public StringBuilder removeHtmlTags(String t, String tag, String endtag){
+     StringBuilder text = new StringBuilder(t);
+     String textString = "";
      
-      Elements links = userAgent.doc.findEach("a href");       //find non-nested links
-      System.out.println("Found " + links.size() + " links.");
-      for(Element link : links){                              //iterate through Results
-       int startpos = text.indexOf(link.toString());
-       int endpos = startpos + link.toString().length();
-       text.delete(startpos, endpos);                         //remove link decl. from text
+     boolean hasAnEnd = true;
+     if(endtag == null || endtag.equals(""))
+         hasAnEnd = false;
+     
+     try{
+      UserAgent userAgent = new UserAgent();
+      userAgent.openContent(t);
+      
+      Elements items = userAgent.doc.findEvery(tag);       //find all (also non-nested) items
+      System.out.printf("Found %d elements of type \"%s\".%n", items.size(), tag);
+      for(Element item : items){                              //iterate through Results
+       int startpos = text.indexOf(item.toString());
+       int endpos = startpos + item.toString().length();
+       text.delete(startpos, endpos);                         //remove item decl. from text
       }
       textString = text.toString();
-      text = new StringBuilder(textString.replaceAll("</a>", ""));  //remove link end from text
-      System.out.println("removed them. " + text);
-      
-      Elements tables = userAgent.doc.findEach("table");       //find non-nested links
-      System.out.println("Found " + tables.size() + " tables.");
-      for(Element table : tables){                              //iterate through Results
-       int startpos = text.indexOf(table.toString());
-       int endpos = startpos + table.toString().length();
-       text.delete(startpos, endpos);                        //remove link decl. from text
-       textString = text.toString();
-      //text = new StringBuilder(textString.replaceAll("</a>", ""));  //remove link end from text
-      System.out.println("removed them. " + text);
-      }
+      text = new StringBuilder(textString.replaceAll(endtag, ""));  //remove endtag from text
+      if(items.size() != 0)
+      System.out.println("Removed them.");
     }
     catch(ResponseException e){
       System.out.println(e);
@@ -36,7 +34,6 @@ public class Util {
     catch(StringIndexOutOfBoundsException e){
       System.err.println(e + "\n Some shit triggered by the HTML-Code. Should be debugged. Later. Maybe. Nothing happens. See ya." );  
     }
-    System.out.println("\n");
         
         
         return text;
