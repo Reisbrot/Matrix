@@ -1,9 +1,9 @@
 package everything;
 
-import com.jaunt.*;
 
 
 public class Gather {
+    
     public String title(String urlContent){
         int titleStart = urlContent.indexOf("<title>") + 7; //+7 because <title> would be part of the output otherwise
         int titleEnd = urlContent.indexOf("</title>")  - 12; // -12 because the title always ends with " – Wikipedia"
