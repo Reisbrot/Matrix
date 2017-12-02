@@ -15,17 +15,13 @@ public class Util {
          hasAnEnd = false;
      
      try{
-      List<String> items = new ArrayList<String>();
-      items.add("s");
-      System.out.printf("Found %d elements of type \"%s\".%n", items.size(), tag);
-      for(Object item : items){                              //iterate through Results
-       int startpos = text.indexOf(item.toString());
-       int endpos = startpos + item.toString().length();
-       text.delete(startpos, endpos);                         //remove item decl. from text
-      }
-      textString = text.toString();
+         textString = t.replace(tag, "");
+         int lengthDifference = t.length() - textString.length();
+         int tagLength = tag.length();
+         int replacedTags = lengthDifference / tagLength;
+      System.out.printf("Found %d elements of type \"%s\".%n", replacedTags, tag);
+      
       text = new StringBuilder(textString.replaceAll(endtag, ""));  //remove endtag from text
-      if(items.size() != 0)
       System.out.println("Removed them.");
     }
     catch(StringIndexOutOfBoundsException e){

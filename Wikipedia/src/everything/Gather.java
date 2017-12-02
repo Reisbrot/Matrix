@@ -22,17 +22,11 @@ public class Gather {
             text = urlContent.substring(textStart, textEnd);
         else
             text = urlContent.substring(textStart);
-        System.out.println(textStart + " - " + textEnd);
-        
-        GatherThe.plainText(text);
-        
-
-        
-        
+        System.out.println(textStart + " - " + textEnd);  
         return text;
     }
 
-    private void plainText(String t) {
+    public void plainText(String t) {
         int iStart = -1;
         int iEnd = -1;
         System.out.println("Raw: " + t);
