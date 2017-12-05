@@ -32,11 +32,14 @@ public class Util {
     else
     try{
          int shift = 0;
+         int shiftEndtag = 0;
          while(true){
              if(text.indexOf(tag, shift) == -1) break;
+             if(text.indexOf(endtag, shiftEndtag) == -1) hasAnEnd = false;                  //Es gib kein Endtag und somit auch kein Ende mehr -> Dirty Dirty Dirty!
+             shiftEndtag = text.indexOf(endtag, shift);
              shift = text.indexOf(tag, shift);
              if(hasAnEnd)                                         //Wenn es ein Endtag gibt. z.B <p> Du stinkst </p>
-             text.delete(shift, endtag.length());
+             text.delete(shift, shiftEndtag + endtag.length());                     //Alles zwischen den beiden Tags wird entfernt. + Die Endtag length, daa dieser auch noch mit weg sollte ;-; GIBT SINN NHNHNH
              else
              text.delete(shift, shift + tagLength);              //Kein Endtag. (z.B <br>)
          }
