@@ -27,14 +27,13 @@ public class Gather {
     }
 
     public void plainText(String t) {
-        boolean between = true; //plainText() -> Wir wollen das Zeug zwischen den Links nicht!
-        int iStart = -1;
-        int iEnd = -1;
+        boolean between = false; //plainText() -> Wir wollen das Zeug zwischen den Links nicht!
         System.out.println("Raw: " + t);
         Util util = new Util();
         String tag = new java.util.Scanner(System.in).nextLine();
         String endtag = new java.util.Scanner(System.in).nextLine();
-        System.out.println("As removed: " + util.removeHtmlTags(t, tag, endtag, between) + "\n");
-    //END OF METHOD LOOLOLOLOL
+        StringBuilder text = new StringBuilder(t);
+        text = util.removeHtmlTags(t, tag, endtag, between);
+        System.out.println("As removed: " + text + "\n");
     }
 }
