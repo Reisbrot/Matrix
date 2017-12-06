@@ -6,8 +6,7 @@ import java.util.Objects;
 
 public class Util {
 
-   public StringBuilder removeHtmlTags(String t, String tag, String endtag, boolean between){ //boolean between -> Soll das Zeug zwischen den Tags auch entfernt werden?
-     StringBuilder text = new StringBuilder(t);
+   public StringBuilder removeHtmlTags(StringBuilder text, String tag, String endtag, boolean between){ //boolean between -> Soll das Zeug zwischen den Tags auch entfernt werden?
      String textString = "";
      int tagLength = tag.length();
      
@@ -30,9 +29,9 @@ public class Util {
              shiftFirstHalfOfMirroredHeart = text.indexOf(">", shift);
              text.delete(shift, shiftFirstHalfOfMirroredHeart + 1);  // Vom Vorkommen des zu entfernenden Tags bis zum nächsten ">" wird alles gefickt
              
-             //System.out.println("Endtag: " + endtag +  "; Shift: " + shift);            Weird debug Output
+             System.out.println("Endtag: " + endtag +  "; Shift: " + shift);            //Weird debug Output
              shiftEndtag = text.indexOf(endtag, shift);
-             //System.out.println("Wird ein: " + shiftEndtag + "  :)");                   Weird debug Output
+             System.out.println("Wird ein: " + shiftEndtag + "  :)");                   //Weird debug Output
          }
     }
     catch(StringIndexOutOfBoundsException e){

@@ -26,7 +26,10 @@ public class Wikipedia {
       }
       System.out.println(GatherThe.title(urlString));
       String intrestingText = GatherThe.intrestingText(urlString);
-      GatherThe.plainText(intrestingText);
+      intrestingText = GatherThe.plainText(intrestingText).toString();
+      System.out.println("As removed: " + intrestingText + "\n");
+      
+      
       }
    }
 }

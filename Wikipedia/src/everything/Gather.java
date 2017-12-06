@@ -26,14 +26,23 @@ public class Gather {
         return text;
     }
 
-    public void plainText(String t) {
+    public StringBuilder plainText(String t) {
         boolean between = false; //plainText() -> Wir wollen das Zeug zwischen den Links nicht!
         System.out.println("Raw: " + t);
         Util util = new Util();
-        String tag = new java.util.Scanner(System.in).nextLine();
-        String endtag = new java.util.Scanner(System.in).nextLine();
         StringBuilder text = new StringBuilder(t);
-        text = util.removeHtmlTags(t, tag, endtag, between);
-        System.out.println("As removed: " + text + "\n");
+        String tag = "<a"; String endtag = "</a>";
+        text = util.removeHtmlTags(text, tag, endtag, between);
+        tag = "<table"; endtag = "</table";
+        text = util.removeHtmlTags(text, tag, endtag, between);
+        tag = "<div"; endtag = "</div>";
+        text = util.removeHtmlTags(text, tag, endtag, between);
+        tag = "<li"; endtag = "</li>";
+        text = util.removeHtmlTags(text, tag, endtag, between);
+        tag = "<span"; endtag = "</span>";
+        text = util.removeHtmlTags(text, tag, endtag, between);
+        tag = "<sup"; endtag = "</sup>";
+        text = util.removeHtmlTags(text, tag, endtag, between);
+        return text;
     }
 }
