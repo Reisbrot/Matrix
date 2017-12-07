@@ -13,7 +13,7 @@ public class Util {
      boolean hasAnEnd = true;
      if(endtag == null || endtag.equals(""))
          hasAnEnd = false;
-          System.out.println(hasAnEnd);
+          //System.out.println(hasAnEnd);
 
      if(!between)
      try{
@@ -29,9 +29,9 @@ public class Util {
              shiftFirstHalfOfMirroredHeart = text.indexOf(">", shift);
              text.delete(shift, shiftFirstHalfOfMirroredHeart + 1);  // Vom Vorkommen des zu entfernenden Tags bis zum nächsten ">" wird alles gefickt
              
-             System.out.println("Endtag: " + endtag +  "; Shift: " + shift);            //Weird debug Output
+             //System.out.println("Endtag: " + endtag +  "; Shift: " + shift);            //Weird debug Output
              shiftEndtag = text.indexOf(endtag, shift);
-             System.out.println("Wird ein: " + shiftEndtag + "  :)");                   //Weird debug Output
+             //System.out.println("Wird ein: " + shiftEndtag + "  :)");                   //Weird debug Output
          }
     }
     catch(StringIndexOutOfBoundsException e){

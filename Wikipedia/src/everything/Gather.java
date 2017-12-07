@@ -22,7 +22,7 @@ public class Gather {
             text = urlContent.substring(textStart, textEnd);
         else
             text = urlContent.substring(textStart);
-        System.out.println(textStart + " - " + textEnd);  
+        //System.out.println(textStart + " - " + textEnd);  
         return text;
     }
 
@@ -43,6 +43,10 @@ public class Gather {
         text = util.removeHtmlTags(text, tag, endtag, between);
         tag = "<sup"; endtag = "</sup>";
         text = util.removeHtmlTags(text, tag, endtag, between);
+        
+        String Zweckstring = text.toString();
+        text = new StringBuilder(Zweckstring.replaceAll("[Bearbeiten | Quelltext bearbeiten]", ""));
+        
         return text;
     }
 }
