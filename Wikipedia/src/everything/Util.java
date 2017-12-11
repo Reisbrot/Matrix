@@ -56,8 +56,10 @@ public class Util {
     catch(StringIndexOutOfBoundsException e){
       //System.err.println(e + "\n Some shit triggered by the HTML-Code. Should be debugged. Later. Maybe. Nothing happens. See ya." );  
     }
-        
-        
+    
+    if(text.indexOf(">") < text.indexOf("<") || text.indexOf(">")!=-1)     // Wenn indexOf KlammerZu kleiner ist als indexOf KlammerOffen und KlammerZu vorhanden ist
+      text.replace(0, text.indexOf(">") + 1, "");                             //  Alles von Anfang bis z. ersten auftreten von KlammerZu wird ELIMINIERT
+              
         return text;
     }
 }
