@@ -59,6 +59,14 @@ public class Gather {
         text = util.removeHtmlTags(text, tag, endtag, between);
         tag = "<ol"; endtag = "</ol>";
         text = util.removeHtmlTags(text, tag, endtag, between);
+        tag = "<meta"; endtag = "</meta>";
+        text = util.removeHtmlTags(text, tag, endtag, between);
+        tag = "<script"; endtag = "</script>";
+        text = util.removeHtmlTags(text, tag, endtag, between);
+        tag = "<head"; endtag = "</head>";                                //Braucht man das wirklich? -.-
+        text = util.removeHtmlTags(text, tag, endtag, between);
+        tag = "<body"; endtag = "</body>";
+        text = util.removeHtmlTags(text, tag, endtag, true);  //Also, das Zeug zwischen 2 body-Tags wär schon ganz nützlich lol
         
         String Zweckstring = text.toString();
         //TODO: REMOVE EDIT SHIT text = new StringBuilder(Zweckstring.replaceAll("[Bearbeiten | Quelltext bearbeiten]", "Penis"));

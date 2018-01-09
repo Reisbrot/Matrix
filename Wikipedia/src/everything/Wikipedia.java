@@ -25,9 +25,10 @@ public class Wikipedia {
          e.printStackTrace();
       }
       System.out.println(GatherThe.title(urlString));
-      String intrestingText = GatherThe.intrestingText(urlString);
-      String plainText = GatherThe.plainText(intrestingText).toString();
-      System.out.println("\n\nAs removed: " + plainText + "\n");
+      String plainText = GatherThe.plainText(urlString).toString();
+      //String intrestingText = GatherThe.intrestingText(urlString); Den wichtigen Text hab ich vorher per HTML Tags ausfindig gemacht (glaube ich, zu faul nachzusehen) Da dabei ungeschlossene Tags übrigbleiben hab ich mich dazu entschlossen, erst den Text zu säubern. Vielleicht die signifikanten Tags später entfernen?
+
+      System.out.println("\n\nAs removed:    " + plainText + "\n");
       
       
       }
