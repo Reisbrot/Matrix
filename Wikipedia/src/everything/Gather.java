@@ -41,11 +41,27 @@ public class Gather {
         text = util.removeHtmlTags(text, tag, endtag, between);
         tag = "<span"; endtag = "</span>";
         text = util.removeHtmlTags(text, tag, endtag, between);
-        tag = "<sup"; endtag = "</sup>";
+        tag = "<td"; endtag = "</td>";
+        text = util.removeHtmlTags(text, tag, endtag, between);
+        tag = "<tr"; endtag = "</tr>";
+        text = util.removeHtmlTags(text, tag, endtag, between);
+        tag = "<dd"; endtag = "</dd>";
+        text = util.removeHtmlTags(text, tag, endtag, between);
+        tag = "<img"; endtag = "</img>";
+        text = util.removeHtmlTags(text, tag, endtag, between);
+        tag = "<i"; endtag = "</i>";
+        text = util.removeHtmlTags(text, tag, endtag, between);
+        tag = "<ul"; endtag = "</ul>";
+        text = util.removeHtmlTags(text, tag, endtag, between);
+        tag = "<b"; endtag = "</b>";
+        text = util.removeHtmlTags(text, tag, endtag, between);
+        tag = "<p"; endtag = "</p>";
+        text = util.removeHtmlTags(text, tag, endtag, between);
+        tag = "<ol"; endtag = "</ol>";
         text = util.removeHtmlTags(text, tag, endtag, between);
         
         String Zweckstring = text.toString();
-        text = new StringBuilder(Zweckstring.replaceAll("[Bearbeiten | Quelltext bearbeiten]", ""));
+        //TODO: REMOVE EDIT SHIT text = new StringBuilder(Zweckstring.replaceAll("[Bearbeiten | Quelltext bearbeiten]", "Penis"));
         
         return text;
     }
