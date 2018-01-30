@@ -67,7 +67,13 @@ public class Gather {
         text = util.removeHtmlTags(text, tag, endtag, between);
         tag = "<body"; endtag = "</body>";
         text = util.removeHtmlTags(text, tag, endtag, true);  //Also, das Zeug zwischen 2 body-Tags wär schon ganz nützlich lol
-        
+        tag = "<form"; endtag = "</form";
+        text = util.removeHtmlTags(text, tag, endtag, between);
+        tag = "<label"; endtag = "</label>";     
+        text = util.removeHtmlTags(text, tag, endtag, between);
+        tag = "<head"; endtag = "</head>";
+        text = util.removeHtmlTags(text, tag, endtag, between);
+    
         String Zweckstring = text.toString();
         //TODO: REMOVE EDIT SHIT text = new StringBuilder(Zweckstring.replaceAll("[Bearbeiten | Quelltext bearbeiten]", "Penis"));
         
