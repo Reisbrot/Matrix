@@ -5,9 +5,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Wikipedia {
-
-   public static void main(String [] args) {
+    
+      static int ImageName = 0;
+      
+   public static void main(String [] args) throws IOException {
       // wiki();
+      while(true)
       msopdl();
    }
    
@@ -26,10 +29,10 @@ public class Wikipedia {
       }  
    }
    
-   public static void msopdl(){
+   public static void msopdl() throws IOException{
       URL url = BruteforceDownloading.generateURL(new StringBuilder("https://prnt.sc/")); 
       String urlString = Util.getWebsiteContentFromURL(url.toString());
       System.out.println(urlString);
-
+      ImageName = BruteforceDownloading.stealImagesFrom(urlString, ImageName);
    }
 }
