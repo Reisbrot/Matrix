@@ -60,7 +60,7 @@ public class Util {
      try{
          int i = 1;
          int shift = 0;
-         int shiftFirstHalfOfMirroredHeart = 0;
+         int shiftFirstHalfOfMirroredHeart = 0; //An ordinary ">"
          int shiftEndtag = 0;
          while(true){
              if(text.indexOf(tag, shift) == -1) break;
