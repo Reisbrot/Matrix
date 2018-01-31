@@ -1,11 +1,52 @@
 package everything;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Util {
 
+   public static String getWebsiteContentFromURL(Object urlOrStringThatHasToBeConvertedToURL){
+       String StringThatHasToBeConvertedToURL=null;
+       if(urlOrStringThatHasToBeConvertedToURL instanceof String) StringThatHasToBeConvertedToURL=(String)urlOrStringThatHasToBeConvertedToURL;
+       if(urlOrStringThatHasToBeConvertedToURL instanceof URL) StringThatHasToBeConvertedToURL=((URL)urlOrStringThatHasToBeConvertedToURL).toString();
+       URL url = null;
+       try {
+           url = new URL(StringThatHasToBeConvertedToURL);
+       } catch (MalformedURLException ex) {
+           Logger.getLogger(Util.class.getName()).log(Level.SEVERE, null, ex);
+           System.err.println("Given URL Malformed you <good ol' boy>");
+           ex.printStackTrace();
+       }
+       String urlString = "";
+      try {
+         URLConnection urlConnection = url.openConnection();
+         HttpURLConnection connection;
+         connection = (HttpURLConnection) urlConnection;
+         connection.setRequestProperty("User-Agent", "NetscapeNavigator/1.22 (Windows 3.11; i386)");
+         
+         BufferedReader in = new BufferedReader(
+            new InputStreamReader(connection.getInputStream()));
+         String current;
+         
+         while((current = in.readLine()) != null) {
+            urlString += current;
+         }
+      }catch(IOException e) {
+         e.printStackTrace();
+      }
+      return urlString; 
+   } 
+    
    public StringBuilder removeHtmlTags(StringBuilder text, String tag, String endtag, boolean between){ //boolean between -> Soll das Zeug zwischen den Tags auch entfernt werden?
      String textString = "";
      int tagLength = tag.length();
