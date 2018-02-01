@@ -12,7 +12,13 @@ import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
 
+import javax.imageio.ImageIO;
 public class Util {
 
    public static String getWebsiteContentFromURL(Object urlOrStringThatHasToBeConvertedToURL){
@@ -103,4 +109,24 @@ public class Util {
               
         return text;
     }
+
+    public static byte[] returnPixelVal(File in) {
+
+        BufferedImage img = null;
+        File f = null;
+        byte[] pixels = null;
+        // read image
+        try {
+            f = in;
+            img = ImageIO.read(f);
+            pixels = ((DataBufferByte) img.getRaster().getDataBuffer()).getData();
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+
+        return pixels;
+
+    }
+
+
 }

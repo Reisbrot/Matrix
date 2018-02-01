@@ -2,12 +2,14 @@ package everything;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,8 +32,7 @@ public class BruteforceDownloading {
     }
     
     
-    public static int stealImagesFrom(String s, int ImageName) throws IOException{
-        
+    public static int stealImagesFrom(String s, int ImageName, boolean AllImages) throws IOException{   
        int ImageLocation = 0;
        int ImageTagLocation = 0;
        while(true){
@@ -48,7 +49,8 @@ public class BruteforceDownloading {
          URL url = new URL(ImageLink);
          URLConnection urlConnection = url.openConnection();
          urlConnection.setRequestProperty("User-Agent", "NetscapeNavigator/1.22 (Windows 3.11; i386)");
-         try{InputStream in = urlConnection.getInputStream(); 
+         try{
+         InputStream in = urlConnection.getInputStream(); 
          ByteArrayOutputStream out = new ByteArrayOutputStream();
         byte[] buf = new byte[1024];
         int n = 0;
@@ -58,10 +60,20 @@ public class BruteforceDownloading {
         }
         out.close();
         in.close();
+        
         byte[] response = out.toByteArray();
         FileOutputStream fos = new FileOutputStream(System.getProperty("user.dir") + "/" + ImageName +".jpg");
         fos.write(response);
         fos.close();
+        
+        File picScreenshotNotAvailable = new File(System.getProperty("user.dir") + "/picScreenshotNotAvailabe.jpg");
+        File picCompare = new File(System.getProperty("user.dir") + "/" + ImageName +".jpg");
+        if (Arrays.equals(Util.returnPixelVal(picScreenshotNotAvailable), Util.returnPixelVal(picCompare))) {
+            System.out.println("Match");
+        } else {
+            System.out.println("No match");
+        }
+        
        } catch(java.io.IOException e){;}}
       return ImageName;
     }

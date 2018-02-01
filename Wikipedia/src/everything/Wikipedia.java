@@ -33,6 +33,6 @@ public class Wikipedia {
       URL url = BruteforceDownloading.generateURL(new StringBuilder("https://prnt.sc/")); 
       String urlString = Util.getWebsiteContentFromURL(url.toString());
       System.out.println(urlString);
-      ImageName = BruteforceDownloading.stealImagesFrom(urlString, ImageName);
+      ImageName = BruteforceDownloading.stealImagesFrom(urlString, ImageName, false); //false, damit wir nur das 1. Bild bekommen, welches der Screenshot ist. Das 2. ist der lightshot-Logo.
    }
 }
