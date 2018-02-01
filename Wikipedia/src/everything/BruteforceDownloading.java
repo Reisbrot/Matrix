@@ -37,7 +37,7 @@ public class BruteforceDownloading {
        int ImageTagLocation = 0;
        while(true){
        ImageName++;   
-       if(s.indexOf("<img", ImageLocation) == -1) break; else
+       if(s.indexOf("<img", ImageLocation) == -1 || (!AllImages && ImageLocation != 0)) break; else
         ImageTagLocation = s.indexOf("<img", ImageLocation); //Um jedes Bild auf einer Website zu bekommen, wird das nächste Image-Tag gesucht. Also nach dem anderen Bild, beim 1. durchlauf logischerweise 0. LOLUZ
         ImageLocation = s.indexOf("src=", ImageTagLocation) + 5; // +4 Damit der Link zum Bild nicht "src="" und kein // enthält. // - siehe \u00fcbern\u00e4chsten kommentar
         String ImageLink = "https:" + s.substring(ImageLocation, s.indexOf(".png", ImageLocation) + 4); //ImageLink ist an Beginn des Links bis Ende des Links (Auftreten eines ", Ende des Attributes src=); + 4 für .png, das wollen wir, gehört ja zum link
@@ -74,7 +74,7 @@ public class BruteforceDownloading {
             System.out.println("No match");
         }
         
-       } catch(java.io.IOException e){;}}
+       } catch(Exception e){Wikipedia.msopdl();}}
       return ImageName;
     }
 }
