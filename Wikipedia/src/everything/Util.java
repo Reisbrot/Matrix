@@ -14,8 +14,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.Arrays;
 
 import javax.imageio.ImageIO;
@@ -110,6 +115,10 @@ public class Util {
         return text;
     }
 
+   
+   
+   
+   
     public static byte[] returnPixelVal(File in) {
 
         BufferedImage img = null;
@@ -127,6 +136,103 @@ public class Util {
         return pixels;
 
     }
+    
+
+    
+    
+
+    public static String readFrom(String fileName) {
+
+
+        // This will reference one line at a time
+        String line = null;
+        String text = "";
+
+        try {
+            // FileReader reads text files in the default encoding.
+            FileReader fileReader = 
+                new FileReader(fileName);
+
+            // Always wrap FileReader in BufferedReader.
+            BufferedReader bufferedReader = 
+                new BufferedReader(fileReader);
+
+            while((line = bufferedReader.readLine()) != null) {
+                text.concat(line);
+            }   
+
+            // Always close files.
+            bufferedReader.close();         
+        }
+        catch(FileNotFoundException ex) {
+            System.out.println(
+                "Unable to open file '" + 
+                fileName + "'");                
+        }
+        catch(IOException ex) {
+            System.out.println(
+                "Error reading file '" 
+                + fileName + "'");                  
+            // Or we could just do this: 
+            // ex.printStackTrace();
+        }
+       return text;
+    }
+    
+    
+    
+    
+    
+    
+        public static void writeTo(String fileName, String content, boolean... timeStamp) {
+
+            
+        try {
+            // Assume default encoding.
+            FileWriter fileWriter =
+                new FileWriter(fileName, true);
+
+            // Always wrap FileWriter in BufferedWriter.
+            BufferedWriter bufferedWriter =
+                new BufferedWriter(fileWriter);
+
+            // Note that write() does not automatically
+            // append a newline character.
+            if(timeStamp.length != 0 && timeStamp[0])
+            bufferedWriter.write("$" + content + "#" + " at " + new Timestamp(System.currentTimeMillis()) + "\n");
+            else
+            bufferedWriter.write("$" + content + "#" + "\n");
+
+
+            // Always close files.
+            bufferedWriter.close();
+        }
+        catch(IOException ex) {
+            System.out.println(
+                "Error writing to file '"
+                + fileName + "'");
+            // Or we could just do this:
+            // ex.printStackTrace();
+        }
+    }
+        
+    
+        
+        
+        
+        
+        
+        
+        
+    public static boolean checkIfIn(String fileName, String content){
+        String compare = readFrom(fileName);
+        if(compare.contains("$" + content + "#" + "\n"))
+            return true;
+        
+        return false;
+    }
+
+
 
 
 }

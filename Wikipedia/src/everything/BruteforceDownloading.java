@@ -9,6 +9,9 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
@@ -32,7 +35,7 @@ public class BruteforceDownloading {
     }
     
     
-    public static int stealImagesFrom(String s, int ImageName, boolean AllImages) throws IOException{   
+    public static int stealImagesFrom(String s, int ImageName, boolean AllImages, String GenericURL) throws IOException{   
        int ImageLocation = 0;
        int ImageTagLocation = 0;
        while(true){
@@ -66,14 +69,17 @@ public class BruteforceDownloading {
         fos.write(response);
         fos.close();
         
-        File picScreenshotNotAvailable = new File(System.getProperty("user.dir") + "/picScreenshotNotAvailabe.jpg");
+        
+        File picScreenshotNotAvailable = new File(System.getProperty("user.dir") + "/picScreenshotNotAvailable.jpg");
         File picCompare = new File(System.getProperty("user.dir") + "/" + ImageName +".jpg");
+        System.out.println(picScreenshotNotAvailable.length() + " Byte ist default, das aktuelle ist: " + picCompare.length() + " Kubikzentimeter.");
         if (Arrays.equals(Util.returnPixelVal(picScreenshotNotAvailable), Util.returnPixelVal(picCompare))) {
             System.out.println("Match");
+            Files.delete(Paths.get(System.getProperty("user.dir") + "/" + ImageName +".jpg")); //Wenn das Bild dem "Screenshot not Available Zeug entspricht wwird es, nachdem es gespeichert urde, wieder gelöscht. Hardcore supreme. Geht garantiert in 2 Minuten gescheit. lol. Aber why not iksdeeedededede"
+            Util.writeTo("usedAdresses", GenericURL, true); //Logge die Links, so dass sie nich nochmal aufgerufen werdndndn! Zumindest nicht in naher zukunft, ist der timestamp n paar monate alt oder so wird der eintrag gestrichen, muss aber noch implementiert werden.
         } else {
             System.out.println("No match");
         }
-        
        } catch(Exception e){Wikipedia.msopdl();}}
       return ImageName;
     }

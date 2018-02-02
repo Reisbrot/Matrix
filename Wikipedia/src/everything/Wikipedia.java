@@ -10,6 +10,7 @@ public class Wikipedia {
       
    public static void main(String [] args) throws IOException {
       // wiki();
+      Util.writeTo("usedAdresses", "Test", true);
       while(true)
       msopdl();
    }
@@ -30,9 +31,12 @@ public class Wikipedia {
    }
    
    public static void msopdl() throws IOException{
-      URL url = BruteforceDownloading.generateURL(new StringBuilder("https://prnt.sc/")); 
+      URL url = BruteforceDownloading.generateURL(new StringBuilder("https://prnt.sc/"));
+      if(Util.checkIfIn("usedAdresses", url.toString()))
+          return; //Die aktuelle Methodeninstanz wird beendet und neu ausgeführt, so dass ein neuer Link generiert wird.
+      
       String urlString = Util.getWebsiteContentFromURL(url.toString());
       System.out.println(urlString);
-      ImageName = BruteforceDownloading.stealImagesFrom(urlString, ImageName, false); //false, damit wir nur das 1. Bild bekommen, welches der Screenshot ist. Das 2. ist der lightshot-Logo.
+      ImageName = BruteforceDownloading.stealImagesFrom(urlString, ImageName, false, url.toString()); //false, damit wir nur das 1. Bild bekommen, welches der Screenshot ist. Das 2. ist der lightshot-Logo.
    }
 }
