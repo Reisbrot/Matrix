@@ -22,8 +22,8 @@ public class BruteforceDownloading {
     
     public static URL generateURL(StringBuilder urlString, int minChars, int maxChars, boolean includesCaps){
         URL url = null;
-        String URLpath = PasswordGenerator.generateURLPath(ThreadLocalRandom.current().nextInt(minChars, maxChars +1), PasswordGenerator.ALPHA + PasswordGenerator.NUMERIC);
-        if(!includesCaps) URLpath.toLowerCase();
+        String URLpath = PasswordGenerator.generateURLPath(ThreadLocalRandom.current().nextInt(minChars, maxChars +1), PasswordGenerator.ALPHA + PasswordGenerator.NUMERIC + PasswordGenerator.ALPHA_CAPS);
+        if(!includesCaps) URLpath = URLpath.toLowerCase();
         try {
             url = new URL(urlString.append(URLpath).toString());
         } catch (MalformedURLException ex) {
@@ -39,9 +39,9 @@ public class BruteforceDownloading {
     public static int stealImagesFrom(String s, int ImageName, boolean AllImages, String GenericURL) throws IOException{   
        int ImageLocation = 0;
        int ImageTagLocation = 0;
-       while(true){
-       ImageName++;   
-       if(s.indexOf("<img", ImageLocation) == -1 || (!AllImages && ImageLocation != 0)) break; else
+       while(true){    
+        if(new File(System.getProperty("user.dir") + "/" + ImageName +".jpg").exists()){ImageName++; break;} //Wenn eine Datei mit dem Namen (z.B 1.jpg) schon existiert, wird der Dateiname geändert (z.B zu 2.jpg) und die Methode erneut aufgerufen, sodass erneut der Dateiname geprüft werden kann.
+        if(s.indexOf("<img", ImageLocation) == -1 || (!AllImages && ImageLocation != 0)) break; else
         ImageTagLocation = s.indexOf("<img", ImageLocation); //Um jedes Bild auf einer Website zu bekommen, wird das nächste Image-Tag gesucht. Also nach dem anderen Bild, beim 1. durchlauf logischerweise 0. LOLUZ
         ImageLocation = s.indexOf("src=", ImageTagLocation) + 5; // +4 Damit der Link zum Bild nicht "src="" und kein // enthält. // - siehe \u00fcbern\u00e4chsten kommentar
         String ImageLink = "https:" + s.substring(ImageLocation, s.indexOf(".png", ImageLocation) + 4); //ImageLink ist an Beginn des Links bis Ende des Links (Auftreten eines ", Ende des Attributes src=); + 4 für .png, das wollen wir, gehört ja zum link

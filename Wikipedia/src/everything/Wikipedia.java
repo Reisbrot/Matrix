@@ -38,14 +38,14 @@ public class Wikipedia {
      int maxChars = 6;
      boolean includesCaps = false;
      
-     //Natürlich könnte ich hier schauen ob der richtige Input eingeputtet wurde... Aber zu faul. Wirklich. Ich bin der einzige der das Tool bedienen wird. Denke ich.
-     int choice = new Scanner(System.in).nextInt();
+     //Natürlich könnte ich hier schauen ob der richtige Input eingegeben wurde... Aber zu faul. Wirklich. Ich bin der einzige der das Tool bedienen wird. Denke ich.
+     int choice = 1; //new Scanner(System.in).nextInt();
           switch (choice) {
               case 1:
                   adress = "https://prnt.sc/";
                   minChars = 3;
                   maxChars = 5;
-                  includesCaps = true; //Nur zur Übersichtlichkeit da.
+                  includesCaps = false; //Nur zur Übersichtlichkeit da.
                   break;
               case 2:
                   adress = "https://i.otut.pw/";
@@ -69,9 +69,8 @@ public class Wikipedia {
       if(Util.checkIfIn("usedAdresses", url.toString()))
           return; //Die aktuelle Methodeninstanz wird beendet und neu ausgeführt, so dass ein neuer Link generiert wird.
       
-      String urlString = Util.getWebsiteContentFromURL(url.toString());
-      System.out.println(urlString);
-      ImageName = BruteforceDownloading.stealImagesFrom(urlString, ImageName, false, url.toString()); //false, damit wir nur das 1. Bild bekommen, welches der Screenshot ist. Das 2. ist der lightshot-Logo.
+      String websiteContent = Util.getWebsiteContentFromURL(url.toString());
+      ImageName = BruteforceDownloading.stealImagesFrom(websiteContent, ImageName, false, url.toString()); //false, damit wir nur das 1. Bild bekommen, welches der Screenshot ist. Das 2. ist der lightshot-Logo.
     }
    }
 }
