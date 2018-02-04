@@ -20,9 +20,10 @@ import java.util.logging.Logger;
 
 public class BruteforceDownloading {
     
-    public static URL generateURL(StringBuilder urlString){
+    public static URL generateURL(StringBuilder urlString, int minChars, int maxChars, boolean includesCaps){
         URL url = null;
-        String URLpath = PasswordGenerator.generateURLPath(ThreadLocalRandom.current().nextInt(3,6), PasswordGenerator.ALPHA + PasswordGenerator.NUMERIC);
+        String URLpath = PasswordGenerator.generateURLPath(ThreadLocalRandom.current().nextInt(minChars, maxChars +1), PasswordGenerator.ALPHA + PasswordGenerator.NUMERIC);
+        if(!includesCaps) URLpath.toLowerCase();
         try {
             url = new URL(urlString.append(URLpath).toString());
         } catch (MalformedURLException ex) {
@@ -44,7 +45,7 @@ public class BruteforceDownloading {
         ImageTagLocation = s.indexOf("<img", ImageLocation); //Um jedes Bild auf einer Website zu bekommen, wird das nächste Image-Tag gesucht. Also nach dem anderen Bild, beim 1. durchlauf logischerweise 0. LOLUZ
         ImageLocation = s.indexOf("src=", ImageTagLocation) + 5; // +4 Damit der Link zum Bild nicht "src="" und kein // enthält. // - siehe \u00fcbern\u00e4chsten kommentar
         String ImageLink = "https:" + s.substring(ImageLocation, s.indexOf(".png", ImageLocation) + 4); //ImageLink ist an Beginn des Links bis Ende des Links (Auftreten eines ", Ende des Attributes src=); + 4 für .png, das wollen wir, gehört ja zum link
-        //Ausserdem das "https", da es sonst kein Protokoll gäbe. Ist schon seltsam gemacht auf deren Seite. Richtige Amateure. Im Gegensatz zu Hakon. Hey Hakon. Freut mich dass du das liest. Viel Erfolg dir noch. Liebe Gr\u00fcssee Corn.
+        if(ImageLink.contains("https:https:")) ImageLink = ImageLink.substring(6); //Wenn das https: angefügt wurde, obwohl es schon https:// gab - echt dumm gemacht, aber funktioniert ;-;
 
         System.out.println("\n\n\n\n\n\n\n\n\n" + ImageLink);
         
