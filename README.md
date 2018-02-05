@@ -11,3 +11,4 @@ HF reading that pile of shit right to ur feet!
 
 --- While doing some Mass Downloads, I got IP-Banned. WELL
 ![WELL](https://github.com/Reisbrot/Matrix/blob/master/Wikipedia/oops.png "щ(ﾟДﾟщ) (屮ﾟДﾟ)屮")
+---> WELL; was only lasting ~15hrs, now I can _play_ again! :happy:
