@@ -36,7 +36,7 @@ public class BruteforceDownloading {
     }
     
     
-    public static int stealImagesFrom(String s, int ImageName, boolean AllImages, String GenericURL) throws IOException{   
+    public static int stealImagesFrom(String s, int ImageName, boolean AllImages, String GenericURL, String usedAdressesName) throws IOException{   
        int ImageLocation = 0;
        int ImageTagLocation = 0;
        while(true){    
@@ -77,7 +77,7 @@ public class BruteforceDownloading {
         if (Arrays.equals(Util.returnPixelVal(picScreenshotNotAvailable), Util.returnPixelVal(picCompare))) {
             System.out.println("Match");
             Files.delete(Paths.get(System.getProperty("user.dir") + "/" + ImageName +".jpg")); //Wenn das Bild dem "Screenshot not Available Zeug entspricht wwird es, nachdem es gespeichert urde, wieder gelöscht. Hardcore supreme. Geht garantiert in 2 Minuten gescheit. lol. Aber why not iksdeeedededede"
-            Util.writeTo("usedAdresses", GenericURL, true); //Logge die Links, so dass sie nich nochmal aufgerufen werdndndn! Zumindest nicht in naher zukunft, ist der timestamp n paar monate alt oder so wird der eintrag gestrichen, muss aber noch implementiert werden.
+            Util.writeTo("usedAdresses" + usedAdressesName,GenericURL, true); //Logge die Links, so dass sie nich nochmal aufgerufen werdndndn! Zumindest nicht in naher zukunft, ist der timestamp n paar monate alt oder so wird der eintrag gestrichen, muss aber noch implementiert werden.
         } else {
             System.out.println("No match");
         }

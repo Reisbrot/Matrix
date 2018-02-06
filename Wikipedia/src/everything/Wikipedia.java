@@ -12,6 +12,7 @@ public class Wikipedia {
    public static void main(String [] args) throws IOException {
       // wiki();
       Util.writeTo("usedAdresses", "Test", true);
+      //ImageName = 6774;
       msopdl();
    }
    
@@ -37,6 +38,7 @@ public class Wikipedia {
      int minChars = 1;
      int maxChars = 6;
      boolean includesCaps = false;
+     String usedAdresses = "default";
      
      //Natürlich könnte ich hier schauen ob der richtige Input eingegeben wurde... Aber zu faul. Wirklich. Ich bin der einzige der das Tool bedienen wird. Denke ich.
      int choice = 1; //new Scanner(System.in).nextInt();
@@ -44,21 +46,24 @@ public class Wikipedia {
               case 1:
                   adress = "https://prnt.sc/";
                   minChars = 3;
-                  maxChars = 5;
+                  maxChars = 6;
                   includesCaps = false; //Nur zur Übersichtlichkeit da.
+                  usedAdresses = "Lightshot";
                   break;
               case 2:
                   adress = "https://i.otut.pw/";
                   minChars = 3;
                   maxChars = 3;
                   includesCaps = true;
+                  usedAdresses = "Otut";
                   break;
               case 3:
-                  System.out.println("Adress(Protocol|Host|/); ENTER; minimal Bruteforce characters; ENTER; max. Bruteforce chars.; ENTER; Including CAPS (true|false); also ENTER.");
+                  System.out.println("Adress(Protocol|Host|/); ENTER; minimal Bruteforce characters; ENTER; max. Bruteforce chars.; ENTER; Including CAPS (true|false); ENTER; used-Adress-File name; also ENTER.");
                   adress = new Scanner(System.in).nextLine();
                   minChars = new Scanner(System.in).nextInt();
                   maxChars = new Scanner(System.in).nextInt();
                   includesCaps = new Scanner(System.in).nextBoolean();
+                  usedAdresses = new Scanner(System.in).nextLine();
                   break;
               default:
                   System.out.println("Fuck off"); System.exit(42);
@@ -70,7 +75,7 @@ public class Wikipedia {
           return; //Die aktuelle Methodeninstanz wird beendet und neu ausgeführt, so dass ein neuer Link generiert wird.
       
       String websiteContent = Util.getWebsiteContentFromURL(url.toString());
-      ImageName = BruteforceDownloading.stealImagesFrom(websiteContent, ImageName, false, url.toString()); //false, damit wir nur das 1. Bild bekommen, welches der Screenshot ist. Das 2. ist der lightshot-Logo.
+      ImageName = BruteforceDownloading.stealImagesFrom(websiteContent, ImageName, false, url.toString(), usedAdresses); //false, damit wir nur das 1. Bild bekommen, welches der Screenshot ist. Das 2. ist der lightshot-Logo.
     }
    }
 }
