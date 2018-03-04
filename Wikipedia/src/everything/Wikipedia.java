@@ -1,4 +1,5 @@
 package everything;
+import java.awt.Desktop;
 import java.net.*;
 import java.io.*;
 import java.util.Scanner;
@@ -11,7 +12,7 @@ public class Wikipedia {
       
    public static void main(String [] args) throws IOException {
       // wiki();
-      Util.writeTo("usedAdresses", "Test", true);
+      Util.writeTo("usedAdresses", "New Try", true);
       //ImageName = 6774;
       msopdl();
    }
@@ -32,22 +33,24 @@ public class Wikipedia {
    }
    
    public static void msopdl() throws IOException{
-     System.out.println("64K Ram System 38911 Basic Bytes Free\nReady.\n1.) Download from Lightshot\n2.) Download from i.otut.pw\n3.) Download from Custom URL");
+     System.out.println("64K Ram System 38911 Basic Bytes Free\nReady.\n1.) Download from Lightshot\n2.) Download from i.otut.pw\n3.) Download from i.imgur.com\n4.) Download from Custom URL");
      //Defaults:
      String adress = "https://prnt.sc/";
      int minChars = 1;
      int maxChars = 6;
      boolean includesCaps = false;
      String usedAdresses = "default";
+     boolean images = true;
      
      //Natürlich könnte ich hier schauen ob der richtige Input eingegeben wurde... Aber zu faul. Wirklich. Ich bin der einzige der das Tool bedienen wird. Denke ich.
-     int choice = 1; //new Scanner(System.in).nextInt();
+     int choice = 3;//new Scanner(System.in).nextInt();
           switch (choice) {
               case 1:
                   adress = "https://prnt.sc/";
                   minChars = 3;
                   maxChars = 6;
                   includesCaps = false; //Nur zur Übersichtlichkeit da.
+                  images = true; //Same
                   usedAdresses = "Lightshot";
                   break;
               case 2:
@@ -58,7 +61,14 @@ public class Wikipedia {
                   usedAdresses = "Otut";
                   break;
               case 3:
-                  System.out.println("Adress(Protocol|Host|/); ENTER; minimal Bruteforce characters; ENTER; max. Bruteforce chars.; ENTER; Including CAPS (true|false); ENTER; used-Adress-File name; also ENTER.");
+                  adress = "https://i.imgur.com/";
+                  minChars = 4;
+                  maxChars = 8;
+                  includesCaps = true;
+                  usedAdresses = "Imgur";
+                  break;
+              case 4:
+                  System.out.println("Adress(Protocol|Host|/); ENTER; minimal Bruteforce characters; ENTER; max. Bruteforce chars.; ENTER; Including CAPS (true|false); ENTER; used-Adress-File name; ENTER; images runterladen (true|false) also ENTER.");
                   adress = new Scanner(System.in).nextLine();
                   minChars = new Scanner(System.in).nextInt();
                   maxChars = new Scanner(System.in).nextInt();
@@ -71,11 +81,14 @@ public class Wikipedia {
      
      while(true){
       URL url = BruteforceDownloading.generateURL(new StringBuilder(adress), minChars, maxChars, includesCaps);
-      if(Util.checkIfIn("usedAdresses", url.toString()))
+      if(Util.checkIfIn("usedAdresses" + usedAdresses, url.toString()))
           return; //Die aktuelle Methodeninstanz wird beendet und neu ausgeführt, so dass ein neuer Link generiert wird.
       
       String websiteContent = Util.getWebsiteContentFromURL(url.toString());
-      ImageName = BruteforceDownloading.stealImagesFrom(websiteContent, ImageName, false, url.toString(), usedAdresses); //false, damit wir nur das 1. Bild bekommen, welches der Screenshot ist. Das 2. ist der lightshot-Logo.
+      if(images)
+          ImageName = BruteforceDownloading.stealImagesFrom(websiteContent, ImageName, false, url.toString(), usedAdresses); //false, damit wir nur das 1. Bild bekommen, welches der Screenshot ist. Das 2. ist der lightshot-Logo.
+      else
+          Desktop.getDesktop().browse(new File(url.toString()).toURI());
     }
    }
 }
