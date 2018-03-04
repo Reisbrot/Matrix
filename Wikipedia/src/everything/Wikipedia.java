@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 
 public class Wikipedia {
     
-      static int ImageName = 0;
+      static int ImageName = 99;
       
    public static void main(String [] args) throws IOException {
       // wiki();

@@ -52,11 +52,29 @@ public class Util {
          while((current = in.readLine()) != null) {
             urlString += current;
          }
-      }catch(IOException e) {
+      }catch(Exception e) {
          e.printStackTrace();
       }
       return urlString; 
    } 
+
+   
+   
+   
+   
+   
+   
+   
+    static String getPathFromURL(String GenericURL) {
+        return GenericURL.subSequence(GenericURL.lastIndexOf("/"), GenericURL.length()).toString(); //subSeq macht SubSequenz von 1. Wert bis zum 2. Wert. Überflüssiger Kommentar jajajaja
+    }
+    
+    
+    
+    
+    
+    
+    
     
    public StringBuilder removeHtmlTags(StringBuilder text, String tag, String endtag, boolean between){ //boolean between -> Soll das Zeug zwischen den Tags auch entfernt werden?
      String textString = "";

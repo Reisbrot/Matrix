@@ -37,10 +37,10 @@ public class BruteforceDownloading {
     
     
     public static int stealImagesFrom(String s, int ImageName, boolean AllImages, String GenericURL, String usedAdressesName) throws IOException{   
+       String ImageNameByURL = Util.getPathFromURL(GenericURL);
        int ImageLocation = 0;
        int ImageTagLocation = 0;
        while(true){    
-        if(new File(System.getProperty("user.dir") + "/" + ImageName +".jpg").exists()){ImageName++; break;} //Wenn eine Datei mit dem Namen (z.B 1.jpg) schon existiert, wird der Dateiname geändert (z.B zu 2.jpg) und die Methode erneut aufgerufen, sodass erneut der Dateiname geprüft werden kann.
         if(s.indexOf("<img", ImageLocation) == -1 || (!AllImages && ImageLocation != 0)) break; else
         ImageTagLocation = s.indexOf("<img", ImageLocation); //Um jedes Bild auf einer Website zu bekommen, wird das nächste Image-Tag gesucht. Also nach dem anderen Bild, beim 1. durchlauf logischerweise 0. LOLUZ
         ImageLocation = s.indexOf("src=", ImageTagLocation) + 5; // +4 Damit der Link zum Bild nicht "src="" und kein // enthält. // - siehe \u00fcbern\u00e4chsten kommentar
@@ -66,17 +66,17 @@ public class BruteforceDownloading {
         in.close();
         
         byte[] response = out.toByteArray();
-        FileOutputStream fos = new FileOutputStream(System.getProperty("user.dir") + "/" + ImageName +".jpg");
+        FileOutputStream fos = new FileOutputStream(System.getProperty("user.dir") + "/" + usedAdressesName + "/" + ImageNameByURL +".jpg");
         fos.write(response);
         fos.close();
         
         
         File picScreenshotNotAvailable = new File(System.getProperty("user.dir") + "/picScreenshotNotAvailable.jpg");
-        File picCompare = new File(System.getProperty("user.dir") + "/" + ImageName +".jpg");
+        File picCompare = new File(System.getProperty("user.dir") + "/" + ImageNameByURL +".jpg");
         System.out.println(picScreenshotNotAvailable.length() + " Byte ist default, das aktuelle ist: " + picCompare.length() + " Kubikzentimeter.");
         if (Arrays.equals(Util.returnPixelVal(picScreenshotNotAvailable), Util.returnPixelVal(picCompare))) {
             System.out.println("Match");
-            Files.delete(Paths.get(System.getProperty("user.dir") + "/" + ImageName +".jpg")); //Wenn das Bild dem "Screenshot not Available Zeug entspricht wwird es, nachdem es gespeichert urde, wieder gelöscht. Hardcore supreme. Geht garantiert in 2 Minuten gescheit. lol. Aber why not iksdeeedededede"
+            Files.delete(Paths.get(System.getProperty("user.dir") + "/" + ImageNameByURL +".jpg")); //Wenn das Bild dem "Screenshot not Available Zeug entspricht wwird es, nachdem es gespeichert urde, wieder gelöscht. Hardcore supreme. Geht garantiert in 2 Minuten gescheit. lol. Aber why not iksdeeedededede"
             Util.writeTo("usedAdresses" + usedAdressesName,GenericURL, true); //Logge die Links, so dass sie nich nochmal aufgerufen werdndndn! Zumindest nicht in naher zukunft, ist der timestamp n paar monate alt oder so wird der eintrag gestrichen, muss aber noch implementiert werden.
         } else {
             System.out.println("No match");
